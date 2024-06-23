@@ -1,3 +1,4 @@
+import 'package:coffee_shop/widgets/coffeeBean.dart';
 import 'package:flutter/material.dart';
 
 class BackGround extends StatelessWidget {
@@ -10,9 +11,14 @@ class BackGround extends StatelessWidget {
       color: Colors.white,
       width: size.width,
       height: size.height,
-      child: Stack(
+      child: const Stack(
         children: [
-
+          CoffeeBean(degree: 190, right: 160, top: 90),
+          CoffeeBean(degree: 90, left: -50, top: 5,),
+          CoffeeBean(degree: 10, left: -70, top: 140,),
+          CoffeeBean(degree: 75, right: -20, top: 150,),
+          CoffeeBean(degree: 100, right: -70, top: 300,),
+          CoffeeBean(degree: 155, right: 70, top: 350,),
         ],
       ),
     );
@@ -20,11 +26,3 @@ class BackGround extends StatelessWidget {
 }
 
 
-class CoffeeBean extends StatelessWidget {
-  const CoffeeBean({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}

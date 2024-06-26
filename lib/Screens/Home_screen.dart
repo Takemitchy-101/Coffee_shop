@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:coffee_shop/Models/Product_model.dart';
 import 'package:coffee_shop/utils/colors.dart';
+import 'package:coffee_shop/widgets/Product%20Image.dart';
 import 'package:coffee_shop/widgets/background.dart';
 import 'package:coffee_shop/widgets/category_item.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +18,31 @@ class _HomePageState extends State<HomePage> {
   int currentcategory = 0;
   int currentProduct = 0;
   PageController? controller;
+  double viewPoint = 0.5;
+  double? pageOffSet = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = PageController(initialPage: 1, viewportFraction: viewPoint)
+      ..addListener(() {
+        setState(() {
+          pageOffSet = controller!.page;
+        });
+      });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller!.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // List<Product>dataProducts = products.where()
+    List<Product> dataProducts = products
+        .where((element) => element.category == categories[currentcategory])
+        .toList();
     return Scaffold(
       appBar: myAppBar(),
       body: Stack(
@@ -75,7 +99,16 @@ class _HomePageState extends State<HomePage> {
                       }
 
                       return GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          setState(() {
+                            currentcategory = index;
+                            dataProducts = products
+                                .where((element) =>
+                                    element.category ==
+                                    categories[currentcategory])
+                                .toList();
+                          });
+                        },
                         child: Padding(
                           padding: EdgeInsets.only(
                               top: 10, bottom: bottomPadding.abs() * 75),
@@ -98,25 +131,77 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Positioned(
-              child: ClipPath(
-            clipper: Clip(),
-            child: Container(
-              color: Colors.transparent,
-              height: MediaQuery.of(context).size.height * 0.50,
-              width: MediaQuery.of(context).size.width,
-              child: PageView.builder(itemBuilder: (context, index) {
-                  
-                  return GestureDetector(
-                     onTap: () {},
-                     child: Padding(padding: EdgeInsets.only()
-                     
-                     child: Transform.rotate(angle: angle),
-                     ),
-                  );
-                },
-              ),
+            bottom: 0,
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                ClipPath(
+                  clipper: Clip(),
+                  child: Container(
+                    color: Colors.transparent,
+                    height: MediaQuery.of(context).size.height * 0.50,
+                    width: MediaQuery.of(context).size.width,
+                    child: PageView.builder(
+                      controller: controller,
+                      // itemCount: dataProducts.length,
+                      onPageChanged: (value) {
+                        setState(() {
+                          currentProduct = value % dataProducts.length;
+                        });
+                      },
+                      itemBuilder: (context, index) {
+                        double scale =
+                            max(viewPoint, (1 - (pageOffSet! - index).abs()));
+                        double angle = 0.0;
+                        final item = dataProducts[index % dataProducts.length];
+                        return GestureDetector(
+                          onTap: () {},
+                          child: Padding(
+                            padding:
+                                EdgeInsets.only(top: 150 - scale / 1.6 * 170),
+                            child: Transform.rotate(
+                              angle: angle * pi,
+                              child: Stack(
+                                alignment: Alignment.topCenter,
+                                children: [
+                                  ProductImage(
+                                    product: item,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+
+                Column(
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width/2,
+                      child: Column(
+                        children: [
+                          Text(dataProducts[currentProduct % dataProducts.length].name,
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            height: 1.5,
+                            color: Color.fromRGBO(255, 255, 255, 1),
+                           ),
+                          ),
+                          SizedBox(height: 15,)
+                        ],
+                      ),
+                    )
+                  ],
+                )
+              ],
             ),
-          ))
+          ),
         ],
       ),
     );

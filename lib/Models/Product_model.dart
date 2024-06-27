@@ -24,8 +24,8 @@ class Product {
     required this.price,
     required this.category,
   });
-
 }
+
   List<Product> products = [
 
     //hot tea
@@ -63,13 +63,13 @@ class Product {
     Product(name: "Strawberry Creme Frappuccino Blended Beverage", image: "Drinks/drink6.png", price: 14, category: categories[2]),
 
     ///bakery    
-    Product(name: "BlueBerry Muffins", image: "Bakery/bakery1.png", price: 25, category: categories[3]),
+    Product(name: "BlueBerry Muffins", image: "Bakery/bakery5.png", price: 25, category: categories[3]),
 
-    Product(name: "BlueBerry Scone", image: "Bakery/bakery2.png", price: 30, category: categories[3]),
+    Product(name: "BlueBerry Scone", image: "Bakery/bakery5.png", price: 30, category: categories[3]),
 
-    Product(name: "Butter Croissant", image: "Bakery/bakery3.png", price: 35, category: categories[3]),
+    Product(name: "Butter Croissant", image: "Bakery/bakery5.png", price: 35, category: categories[3]),
 
-    Product(name: "Petite Vanila Bean Scone", image: "Bakery/bakery4.png", price: 40, category: categories[3]),
+    Product(name: "Petite Vanila Bean Scone", image: "Bakery/bakery5.png", price: 40, category: categories[3]),
 
     Product(name: "Pink Drink StarBucks  Refresher Beverage", image: "Bakery/bakery5.png", price: 45, category: categories[3]),
 

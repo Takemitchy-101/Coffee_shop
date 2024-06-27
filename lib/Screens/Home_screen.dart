@@ -1,11 +1,14 @@
 import 'dart:math';
 
 import 'package:coffee_shop/Models/Product_model.dart';
+import 'package:coffee_shop/Screens/detailScreen.dart';
 import 'package:coffee_shop/utils/colors.dart';
 import 'package:coffee_shop/widgets/Product%20Image.dart';
+import 'package:coffee_shop/widgets/animation.dart';
 import 'package:coffee_shop/widgets/background.dart';
 import 'package:coffee_shop/widgets/category_item.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter/widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -155,19 +158,27 @@ class _HomePageState extends State<HomePage> {
                         double angle = 0.0;
                         final item = dataProducts[index % dataProducts.length];
                         return GestureDetector(
-                          onTap: () {},
-                          child: Padding(
-                            padding:
-                                EdgeInsets.only(top: 150 - scale / 1.6 * 170),
-                            child: Transform.rotate(
-                              angle: angle * pi,
-                              child: Stack(
-                                alignment: Alignment.topCenter,
-                                children: [
-                                  ProductImage(
-                                    product: item,
-                                  )
-                                ],
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => 
+                          Detailscreen( 
+                            product: dataProducts[index % dataProducts.length],
+                              ),
+                            ),
+                          ),
+                          child: Hero(
+                            tag: item.name,
+                            child: Padding(
+                              padding:
+                                  EdgeInsets.only(top: 145 - scale / 1.5 * 170),
+                              child: Transform.rotate(
+                                angle: angle * pi,
+                                child: Stack(
+                                  alignment: Alignment.topCenter,
+                                  children: [
+                                    ProductImage(
+                                      product: item,
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -193,7 +204,28 @@ class _HomePageState extends State<HomePage> {
                             color: Color.fromRGBO(255, 255, 255, 1),
                            ),
                           ),
-                          SizedBox(height: 15,)
+                          const SizedBox(height: 5),
+
+                          Text("\$ ${dataProducts[currentProduct % dataProducts.length].price}",
+                          textAlign:TextAlign.center,
+                          maxLines: 2,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 19,
+                            height: 1.5,
+                            color: Colors.white,
+                          ),
+                        ),
+                          const SizedBox(height: 10,),
+                          Row(
+                            children: 
+                                List.generate(
+                                  dataProducts.length, 
+                                  (index) => indicator(index, currentProduct),
+                                ),
+                          ),
+
+                          const SizedBox(height: 10,),
                         ],
                       ),
                     )

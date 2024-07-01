@@ -160,7 +160,7 @@ class _HomePageState extends State<HomePage> {
                         return GestureDetector(
                           onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => 
                           Detailscreen( 
-                            product: dataProducts[index % dataProducts.length],
+                            product: dataProducts[currentProduct % dataProducts.length],
                               ),
                             ),
                           ),
@@ -182,6 +182,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                           ),
+                          
                         );
                       },
                     ),

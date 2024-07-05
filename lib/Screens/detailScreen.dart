@@ -90,7 +90,7 @@ class _DetailscreenState extends State<Detailscreen> {
                         color: Colors.black38,
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: List.generate(sizeOpions.length, (index) {
@@ -101,11 +101,91 @@ class _DetailscreenState extends State<Detailscreen> {
                             });
                           },
                           child: Sizeoptionitem(
-                            index: index, sizeOption: sizeOpions[index], selected: selectedSize == index ? true : false),
+                              index: index,
+                              sizeOption: sizeOpions[index],
+                              selected: selectedSize == index ? true : false),
                         );
                       }),
                     ),
                   ],
+                ),
+                const SizedBox(height: 40),
+                Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          if (quantity >= 1) {
+                            quantity--;
+                          }
+                        });
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: const BoxDecoration(
+                          color: secondColor,
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Icons.remove,
+                          size: 20,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      quantity.toString(),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          quantity++;
+                        });
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: const BoxDecoration(
+                          color: secondColor,
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Icons.add,
+                          size: 20,
+                          color: Colors.white,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(width: 30,),
+
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    decoration:  BoxDecoration(
+                      color: secondColor,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+
+                    child:const Center(
+                      child: Text(
+                        "Add to Cart", 
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Colors.white,
+                        ), 
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),

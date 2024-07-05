@@ -27,7 +27,7 @@ class Sizeoptionitem extends StatelessWidget {
             shape: BoxShape.circle,
           ),
           child: Center(
-            child: Image.asset("mages/coffee-cup.png",
+            child: Image.asset("images/coffee-cup.png",
               color: selected ? Colors.white : firstColor,
               width: 25 + (index * 5),
             ),
